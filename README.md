@@ -55,3 +55,40 @@ jobs:
 
 
 ```
+
+# CI/CD pipeline for update Nodejs website on linux VPS
+```
+name: CI/CD for Nodejs website deploy in Linux VPS
+on:
+  push: 
+    branches: [ node-file ]
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    environment: dev_portfolio
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST_IP }} 
+        username: ${{ secrets.HOST_NAME }} 
+        password: ${{ secrets.HOST_PASSWD }} 
+        port: 22
+        script: |
+          cd /var/www/static-portfolio-github-action
+          pm2 stop server
+          pm2 delete server
+          sudo git pull
+          sudo npm install
+          pm2 start server.js
+          if [[ $? ]]
+          then
+          echo "Congratulation Website Update"
+          else
+          echo " Website Not Update"
+          fi
+          exit
+
+```
