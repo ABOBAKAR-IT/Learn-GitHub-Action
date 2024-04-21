@@ -1,3 +1,8 @@
+# GitHub Actions Workflows
+- GitHub Actions uses YAML syntax to define the workflow. Each workflow is stored as a separate YAML file in your code repository, in a directory named `.github/workflows`.
+- In the .github/workflows/ directory, create a new file called `github-actions.yml` and add the following code.
+
+
 # CI/CD pipeline for update static website on linux VPS
 ## 1
 ```
